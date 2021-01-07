@@ -1,0 +1,233 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>教务系统</title>
+    <meta name="description" content="Exam Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/pe-icon-7-filled.css">
+    <link rel="stylesheet" href="../assets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="../assets/weather/css/weather-icons.css" rel="stylesheet"/>
+    <link href="../assets/calendar/fullcalendar.css" rel="stylesheet"/>
+
+    <link href="../assets/css/charts/chartist.min.css" rel="stylesheet">
+    <link href="../assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+    <link href="../public/css/page.css" rel="stylesheet"/>
+</head>
+
+<body>
+<!-- Left Panel -->
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class=" dropdown">
+                    <a href="../student/all">
+                        <i class="menu-icon fa fa-cogs"></i>学生管理</a>
+                </li>
+                <li class=" dropdown">
+                    <a href="#">
+                        <i class="menu-icon fa fa-bar-chart"></i>订单管理</a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside>
+<!-- /#left-panel -->
+<!-- Right Panel -->
+<div id="right-panel" class="right-panel">
+    <!-- Header-->
+    <header id="header" class="header">
+        <div class="top-left">
+            <div class="navbar-header">
+                <a class="navbar-brand" href=".././"><img src="../public/images/loginTil1.png"></a>
+                <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+            </div>
+        </div>
+        <div class="top-right">
+            <div class="header-menu">
+
+
+                <div class="user-area dropdown float-right">
+                    <a href="../#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false" th:text="${session.admin.uname}">
+                    </a>
+
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="../admin/modifyPassword"><i class="fa fa- user"></i>修改密码 </a>
+                        <a class="nav-link" href="../admin/logout"><i class="fa fa- user"></i>退出 </a>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <!-- /#header -->
+    <!-- Content -->
+    <div class="content">
+        <!-- Animated -->
+        <div class="animated fadeIn">
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+                <div class="col-md-12">
+
+                    <div class="card">
+                        <div class="col-md-11" align="right">
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered" id="table">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>学校</th>
+                                    <th>年级</th>
+                                    <th>班级</th>
+                                    <th>学生</th>
+                                    <th>电话</th>
+                                    <th>课程</th>
+                                    <th>金额</th>
+                                    <th>订单状态</th>
+                                    <th>是否付款</th>
+                                    <th>付款时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${orderList!=null}" th:each="order:${orderList}">
+                                    <td th:text="${order.ordersn}">
+                                    </td>
+                                    <td th:text="${order.schoolName}">
+                                    </td>
+                                    <td th:text="${order.gradeName}">
+                                    </td>
+                                    <td th:text="${order.className}">
+                                    </td>
+                                    <td th:text="${order.sName}">
+                                    </td>
+                                    <td th:text="${order.phone}">
+                                    </td>
+                                    <td th:text="${order.subjectName}">
+                                    </td>
+                                    <td th:text="${order.money}">
+                                    </td>
+                                    <td th:text="${order.flag}">
+                                    </td>
+                                    <td th:text="${order.isPay}">
+                                    </td>
+                                    <td th:text="${order.payTime}">
+                                    </td>
+                                    <td>
+                                        <a th:if="${order.isPay!='未付款'  &&order.flag!='已退款'}"
+                                           class="btn btn-primary btn-sm"
+                                           onclick="confirmUpdate([[${order.id}]])">退款</a>
+                                        <a class="btn btn-danger btn-sm" th:if="${order.isPay=='未付款' }"
+                                           onclick="confirmDelete([[${order.id}]])">删除</a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="col-md-5" style="float: left">
+                                共
+                                <label th:text="${page.total}"></label>
+                                条数据，
+                                当前为第
+                                <label th:text="${page.pageNum}"></label>
+                                页，
+                                共
+                                <label th:text="${page.pages}"></label>
+                                页
+                            </div>
+                            <div class="col-md-7" style="float: right;">
+                                <nav aria-label="Page navigation" style="float: right;">
+                                    <ul class="pagination">
+                                        <li><a href="all?pageNum=1">&laquo;</a></li>
+                                        <li th:if="${page.hasPreviousPage}">
+                                            <a href="all?pageNum=${page.pageNum-1}" aria-label="Previous">
+                                                <span aria-hidden="true">&lsaquo;</span>
+                                            </a>
+                                        </li>
+
+                                        <li th:each="page_Num:${page.navigatepageNums }">
+                                            <a th:if="${page_Num == page.pageNum }" th:text="${page_Num}"></a>
+                                            <a th:if="${page_Num != page.pageNum }" th:href="'all?pageNum='+${page_Num}">${page_Num}</a>
+
+                                        </li>
+
+                                        <li th:if="${page.hasNextPage}">
+                                            <a th:href="'all?pageNum='+${page.pageNum+1}" aria-label="Next">
+                                                <span aria-hidden="true">&rsaquo;</span>
+                                            </a>
+                                        </li>
+
+                                        <li><a th:href="'all?pageNum='+${page.pages}">&raquo;</a></li>
+                                    </ul>
+                                </nav>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- .animated -->
+    </div>
+    <!-- /.content -->
+    <div class="clearfix"></div>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner bg-white">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    Copyright &copy; 2020 教务系统 &nbsp; Designed by TC
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /.site-footer -->
+</div>
+<!-- /#right-panel -->
+
+<script src="../assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/plugins.js"></script>
+<script src="../assets/js/main.js"></script>
+
+<script type="text/javascript">
+    function confirmDelete(id) {
+        if (window.confirm("确定删除该订单？", "系统提示")) {
+            window.location.href = "./delete/" + id;
+        }
+
+    }
+
+    function confirmUpdate(id) {
+        if (window.confirm("确定退款？", "系统提示")) {
+            window.location.href = "./updateFlag/" + id;
+        }
+
+    }
+
+</script>
+
+
+</body>
+</html>

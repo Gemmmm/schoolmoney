@@ -1,0 +1,231 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>教务系统</title>
+    <meta name="description" content="Exam Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/pe-icon-7-filled.css">
+    <link rel="stylesheet" href="../assets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="../assets/weather/css/weather-icons.css" rel="stylesheet"/>
+    <link href="../assets/calendar/fullcalendar.css" rel="stylesheet"/>
+
+    <link href="../assets/css/charts/chartist.min.css" rel="stylesheet">
+    <link href="../assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- Left Panel -->
+<aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm navbar-default">
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class=" dropdown">
+                    <a href="../student/all">
+                        <i class="menu-icon fa fa-cogs"></i>学生管理</a>
+                    <ul class="sub-menu children dropdown-menu">
+                    </ul>
+                </li>
+                <li class=" dropdown">
+                    <a href="../order/all" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-bar-chart"></i>订单管理</a>
+                </li>
+
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside>
+<!-- /#left-panel -->
+<!-- Right Panel -->
+<div id="right-panel" class="right-panel">
+    <!-- Header-->
+    <header id="header" class="header">
+        <div class="top-left">
+            <div class="navbar-header">
+                <a class="navbar-brand" href=".././"><img src="../public/images/loginTil1.png"> </a>
+                <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+            </div>
+        </div>
+        <div class="top-right">
+            <div class="header-menu">
+
+
+                <div class="user-area dropdown float-right">
+                    <a href="../#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false" th:text="${session.admin.uname}">
+                    </a>
+
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="../admin/modifyPassword"><i class="fa fa- user"></i>修改密码 </a>
+                        <a class="nav-link" href="../admin/logout"><i class="fa fa- user"></i>退出 </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <!-- /#header -->
+    <!-- Content -->
+    <div class="content">
+        <!-- Animated -->
+        <div class="animated fadeIn">
+
+            <div class="col-md-6" style="float: right">
+                <div class="card">
+                    <div class="card-header" align="center">
+                        <strong class="card-title">文件输入</strong>
+                    </div>
+                    <div class="card-body" style="    padding-bottom: 378px">
+                        <form action="./import" method="post" enctype="multipart/form-data">
+                            <table>
+                                <tr>
+                                    <td style="width: 40px">文件</td>
+                                    <td><input type="file" name="studentExcel" class="form-control in_margin"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center"><input type="submit" value="提交"
+                                                                          class="btn btn-success btn btn_pad"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="float: left">
+                <div class="card">
+                    <div class="card-header" align="center">
+                        <strong class="card-title">单个输入</strong>
+                    </div>
+                    <div class="card-body">
+                        <form  id="form" method="post">
+                            <table>
+                                <tr class="input_hight">
+                                    <td>学校：</td>
+                                    <td>
+                                        <input class="form-control" type="text" name="schoolName" id="schoolname"/>
+                                    </td>
+                                </tr>
+                                <tr class="input_hight">
+                                    <td>年级：</td>
+                                    <td>
+                                        <select name="gradeid" class="form-control">
+                                            <option value="1">请选择班级</option>
+                                            <option value="1">小一</option>
+                                            <option value="2">小二</option>
+                                            <option value="3">小三</option>
+                                            <option value="4">小四</option>
+                                            <option value="5">小五</option>
+                                            <option value="6">小六</option>
+                                            <option value="7">初一</option>
+                                            <option value="8">初二</option>
+                                            <option value="9">初三</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="input_hight">
+                                    <td>班级：</td>
+                                    <td>
+                                        <select name="classid" class="form-control">
+                                            <option value="">选择班级</option>
+                                            <option value="1">01班</option>
+                                            <option value="2">02班</option>
+                                            <option value="3">03班</option>
+                                            <option value="4">04班</option>
+                                            <option value="5">05班</option>
+                                            <option value="6">06班</option>
+                                            <option value="7">07班</option>
+                                            <option value="8">08班</option>
+                                            <option value="9">09班</option>
+                                            <option value="10">10班</option>
+                                            <option value="11">11班</option>
+                                            <option value="12">12班</option>
+                                            <option value="13">13班</option>
+                                            <option value="14">14班</option>
+                                            <option value="15">15班</option>
+                                            <option value="16">16班</option>
+                                            <option value="17">17班</option>
+                                            <option value="18">18班</option>
+                                            <option value="19">19班</option>
+                                            <option value="20">20班</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="input_hight">
+                                    <td>学生：</td>
+                                    <td>
+                                        <input class="form-control" type="text" name="sname" id="sname"/>
+                                    </td>
+                                </tr>
+                                <tr class="input_hight">
+                                    <td>学号：</td>
+                                    <td>
+                                        <input class="form-control" type="text" name="sno" id="sno"/>
+                                    </td>
+                                </tr>
+
+                                <tr class="input_hight">
+                                    <td>电话：</td>
+                                    <td>
+                                        <input class="form-control" type="text" name="phone" id="phone"/>
+                                    </td>
+                                </tr>
+                                <tr class="input_hight">
+                                    <td>项目：</td>
+                                    <td>
+                                        <div class="form-inline in_margin">
+                                            <input style="float: left;" type="checkbox" id="ctj" value="ctj"
+                                                   name="ctj"/>错题集
+                                            <input type="text" name="ctjMoney" class="form-control "
+                                                   style="margin-left: 10px">元
+                                        </div>
+                                        <div class="form-inline in_margin">
+                                            <input type="checkbox" id="ykt" value="ykt" name="ykt">云课堂
+                                            <input type="text" name="yktMoney" class="form-control "
+                                                   style="margin-left: 10px">元
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="input_hight">
+                                    <td colspan="2" align="center">
+                                        <input type="submit" value="提交"   class="btn btn-success btn btn_pad"></td>
+                                </tr>
+                            </table>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .animated -->
+    </div>
+    <!-- /.content -->
+    <div class="clearfix"></div>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner bg-white">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    Copyright &copy; 2020 教务系统 &nbsp; Designed by TC
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /.site-footer -->
+</div>
+<!-- /#right-panel -->
+
+<script src="../assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/plugins.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
